@@ -24,6 +24,15 @@ DOCKER_TARGETS           ?= sctplb
 
 .PHONY: docker-build docker-push
 
+print-branch:
+	@echo ${DOCKER_REPOSITORY}${DOCKER_TARGETS}-${DOCKER_TAG}
+
+print-tag:
+	@echo ${DOCKER_REPOSITORY}${DOCKER_TARGETS}:${DOCKER_TAG}
+
+print-target:
+	@echo ${DOCKER_TARGETS}
+
 # https://docs.docker.com/engine/reference/commandline/build/#specifying-target-build-stage---target
 docker-build:
 	for target in $(DOCKER_TARGETS); do \
