@@ -34,9 +34,7 @@ print-target:
 	@echo ${DOCKER_TARGETS}
 
 mod-start:
-    cd ${GO_SRC_PATH}
-    go mod download
-
+    cd ${GO_SRC_PATH} && go mod download
 
 # https://docs.docker.com/engine/reference/commandline/build/#specifying-target-build-stage---target
 docker-build:
