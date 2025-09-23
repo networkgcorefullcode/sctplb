@@ -5,7 +5,7 @@
 
 PROJECT_NAME             := sctplb
 VERSION                  ?= $(shell cat ./VERSION)
-
+GO_SRC_PATH				 ?= ./
 ## Docker related
 DOCKER_REGISTRY          ?= 192.168.12.15:8083/
 DOCKER_REPOSITORY        ?= omecproject/
@@ -32,6 +32,11 @@ print-tag:
 
 print-target:
 	@echo ${DOCKER_TARGETS}
+
+mod-start:
+    cd ${GO_SRC_PATH}
+    go mod download
+
 
 # https://docs.docker.com/engine/reference/commandline/build/#specifying-target-build-stage---target
 docker-build:
