@@ -7,6 +7,12 @@
 FROM golang:1.24.5-bookworm AS builder
 
 WORKDIR $GOPATH/src/sctplb
+COPY go.mod .
+COPY go.sum .
+COPY Makefile .
+
+RUN make mod-start
+
 COPY . .
 RUN CGO_ENABLED=0 go install
 
@@ -20,7 +26,7 @@ ARG DEBUG_TOOLS
 
 # Install debug tools ~ 50MB (if DEBUG_TOOLS is set to true)
 RUN if [ "$DEBUG_TOOLS" = "true" ]; then \
-        apk update && apk add --no-cache -U vim strace net-tools curl netcat-openbsd bind-tools bash; \
-        fi
+    apk update && apk add --no-cache -U vim strace net-tools curl netcat-openbsd bind-tools bash; \
+    fi
 
 COPY --from=builder /go/bin/* /usr/local/bin/.
